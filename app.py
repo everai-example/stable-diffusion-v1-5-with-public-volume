@@ -2,7 +2,7 @@ from diffusers import StableDiffusionPipeline, StableDiffusionImg2ImgPipeline
 import torch
 
 from everai.app import App, context, VolumeRequest
-from everai.autoscaling import SimpleAutoScalingPolicy
+from everai_autoscaler.builtin import SimpleAutoScaler
 from everai.image import Image, BasicAuth
 from everai.resource_requests import ResourceRequests
 from everai.placeholder import Placeholder
@@ -41,7 +41,7 @@ app = App(
         QUAY_IO_SECRET_NAME
     ],
     configmap_requests=[CONFIGMAP_NAME],
-    autoscaling_policy=SimpleAutoScalingPolicy(
+    autoscaler=SimpleAutoScaler(
         # keep running workers even no any requests, that make reaction immediately for new request
         min_workers=Placeholder(kind='ConfigMap', name=CONFIGMAP_NAME, key='min_workers'),
         # the maximum works setting, protect your application avoid to pay a lot of money
@@ -108,8 +108,8 @@ def prepare_model():
         img2img_pipe.to(mps_device)
 
 # service entrypoint
-# api service url looks https://everai.expvent.com/api/routes/v1/stable-diffusion-v1-5/txt2img
-# for test local url is http://127.0.0.1:8866/txt2img
+# api service url looks https://everai.expvent.com/api/routes/v1/default/stable-diffusion-v1-5/txt2img
+# for test local url is http://127.0.0.1/txt2img
 @app.service.route('/txt2img', methods=['GET','POST'])
 def txt2img():    
     if flask.request.method == 'POST':
@@ -128,8 +128,8 @@ def txt2img():
     return Response(byte_stream.getvalue(), mimetype="image/png")
 
 # service entrypoint
-# api service url looks https://everai.expvent.com/api/routes/v1/stable-diffusion-v1-5/img2img
-# for test local url is http://127.0.0.1:8866/img2img
+# api service url looks https://everai.expvent.com/api/routes/v1/default/stable-diffusion-v1-5/img2img
+# for test local url is http://127.0.0.1/img2img
 @app.service.route('/img2img', methods=['POST'])
 def img2img():        
     f = flask.request.files['file']
