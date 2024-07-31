@@ -16,7 +16,7 @@ import PIL
 from io import BytesIO
 
 APP_NAME = 'stable-diffusion-v1-5'
-VOLUME_NAME = 'expvent/models--runwayml--stable-diffusion-v1-5'
+VOLUME_NAME = 'everai/models--runwayml--stable-diffusion-v1-5'
 QUAY_IO_SECRET_NAME = 'your-quay-io-secret-name'
 HUGGINGFACE_SECRET_NAME = 'your-huggingface-secret-name'
 MODEL_NAME = 'runwayml/stable-diffusion-v1-5'

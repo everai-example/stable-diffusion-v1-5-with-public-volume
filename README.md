@@ -49,7 +49,7 @@ from everai.placeholder import Placeholder
 from image_builder import IMAGE
 
 APP_NAME = '<your app name>'
-VOLUME_NAME = 'expvent/models--runwayml--stable-diffusion-v1-5'
+VOLUME_NAME = 'everai/models--runwayml--stable-diffusion-v1-5'
 QUAY_IO_SECRET_NAME = 'your-quay-io-secret-name'
 HUGGINGFACE_SECRET_NAME = 'your-huggingface-secret-name'
 MODEL_NAME = 'runwayml/stable-diffusion-v1-5'
@@ -97,7 +97,7 @@ app = App(
 
 ### Load model
 
-You can load the model using the model file in the public volume `expvent/models--runwayml--stable-diffusion-v1-5` we provide.  
+You can load the model using the model file in the public volume `everai/models--runwayml--stable-diffusion-v1-5` we provide.  
 
 ```python
 from diffusers import StableDiffusionPipeline, StableDiffusionImg2ImgPipeline
