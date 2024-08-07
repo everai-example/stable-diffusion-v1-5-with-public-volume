@@ -129,7 +129,7 @@ def prepare_model():
     txt2img_pipe = StableDiffusionPipeline.from_pretrained(MODEL_NAME,
                                                         token=huggingface_token,
                                                         cache_dir=model_dir,
-                                                        revision="fp16", 
+                                                        variant='fp16', 
                                                         torch_dtype=torch.float16, 
                                                         low_cpu_mem_usage=False,
                                                         local_files_only=True
@@ -138,10 +138,10 @@ def prepare_model():
     # The self.components property can be useful to run different pipelines with the same weights and configurations without reallocating additional memory.
     # If you just want to use img2img pipeline, you should use StableDiffusionImg2ImgPipeline.from_pretrained below.
     img2img_pipe = StableDiffusionImg2ImgPipeline(**txt2img_pipe.components)
-    #image_pipe = StableDiffusionImg2ImgPipeline.from_pretrained(MODEL_NAME,
+    #img2img_pipe = StableDiffusionImg2ImgPipeline.from_pretrained(MODEL_NAME,
     #                                                            token=huggingface_token,
     #                                                            cache_dir=model_dir,
-    #                                                            revision="fp16",
+    #                                                            variant='fp16',
     #                                                            torch_dtype=torch.float16, 
     #                                                            low_cpu_mem_usage=False,
     #                                                            local_files_only=True
